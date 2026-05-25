@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>Archivo Cronológico — DESGUACES OSINALDE S.L. · 2026 · Alvale Consulting</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --brand-navy:     #2C2E88;
+  --brand-green:    #238D3E;
+  --brand-purple:   #5D549D;
+  --brand-lavender: #8B83BA;
+  --navy-50:  #EEEFF7;
+  --navy-700: #1B1D58;
+  --ink-25:   #FAFAFC;
+  --ink-50:   #F4F4F8;
+  --ink-100:  #E8E8EF;
+  --ink-200:  #D2D2DE;
+  --ink-400:  #7E8094;
+  --ink-700:  #2A2C3D;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+  --font-brand: 'Poppins', 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+h1,h2,h3 { margin:0; padding:0; font-size:inherit; font-weight:inherit; }
+.pdf-bookmark { display:inline; font-size:inherit; font-weight:inherit;
+  color:inherit; font-family:inherit; letter-spacing:inherit; }
+
+html, body { margin:0; padding:0; font-family:var(--font-body);
+  color:var(--ink-700); background:#d9dae0;
+  -webkit-font-smoothing:antialiased; }
+
+/* ── Sheets ── */
+.sheet {
+  width:297mm; height:210mm;
+  background:#fff; margin:18px auto;
+  box-shadow:0 2px 10px rgba(0,0,0,.10);
+  page-break-after:always;
+  position:relative; display:flex; flex-direction:column;
+  overflow:hidden;
+}
+.sheet:last-child { page-break-after:auto; }
+.sheet--cover { width:210mm; height:297mm; }
+
+/* ── Cover decorative bar ── */
+.cover__eyebrow { display:flex; gap:3px; margin-bottom:7mm; }
+.cover__eyebrow span { display:block; width:20px; height:10px; border-radius:1px; }
+.cover__eyebrow span:nth-child(1) { background:var(--brand-navy); }
+.cover__eyebrow span:nth-child(2) { background:var(--brand-green); }
+.cover__eyebrow span:nth-child(3) { background:var(--brand-purple); }
+.cover__eyebrow span:nth-child(4) { background:var(--brand-lavender); }
+.cover__eyebrow span:nth-child(5) { background:#C3C0DE; }
+
+/* ── Header ── */
+.sheet__head {
+  display:flex; justify-content:space-between; align-items:center;
+  background:#EEEFF7; flex-shrink:0;
+}
+.sheet__head-meta { font-size:7.5pt; color:var(--brand-navy); font-weight:600; padding:2.5mm 10mm; }
+.sheet__head-meta b { font-weight:700; text-transform:uppercase; }
+.sheet__head-right { font-size:7.5pt; color:var(--brand-navy); font-weight:600;
+  padding:2.5mm 10mm; text-align:right; font-family:var(--font-brand); }
+
+/* ── Body ── */
+.sheet__body { flex:1; padding:2mm 8mm 2mm; display:flex;
+  flex-direction:column; overflow:hidden; min-height:0; }
+
+/* ── Footer ── */
+.sheet__foot {
+  border-top:0.5px solid var(--ink-200);
+  padding:2mm 10mm 3mm;
+  display:flex; justify-content:space-between;
+  font-size:7pt; color:var(--ink-400); flex-shrink:0;
+}
+
+/* ── Section title ── */
+.doc-section { margin-bottom:1mm; flex-shrink:0; }
+.doc-section__title {
+  font-family:var(--font-body); font-weight:700;
+  font-size:9pt; color:var(--brand-navy); margin:0 0 1mm;
+  line-height:1.1; text-transform:uppercase; letter-spacing:0.06em;
+}
+
+/* ══ TABLA ══
+   18 columnas (sin Nº inscr. transportista):
+   Fecha | LER | Desc | (t) | DI | CT | RS-dest | NIF | NIMA | Naut | Tipo |
+   Mun | Prov | CCAA | País | RS-transp | Método | Proceso
+*/
+.crono-table {
+  width:100%; border-collapse:collapse;
+  font-size:5.6pt; font-family:var(--font-body);
+  table-layout:fixed; line-height:1.2; color:var(--ink-700);
+}
+
+/* Group row */
+.crono-table thead .group th {
+  background:var(--brand-navy); color:#fff;
+  font-weight:800; letter-spacing:0.04em; text-transform:uppercase;
+  font-size:6pt; padding:1mm 0.8mm; text-align:center;
+  border-right:0.25mm solid rgba(255,255,255,.3);
+  border-bottom:0.25mm solid rgba(255,255,255,.4);
+  vertical-align:middle; white-space:nowrap;
+}
+.crono-table thead .group th:last-child { border-right:0; }
+
+/* Sub row */
+.crono-table thead .sub th {
+  background:#ADB1D9; color:#1B1D58;
+  font-weight:700; font-size:5.4pt;
+  padding:0.8mm 0.5mm; text-align:center;
+  border-right:0.15mm solid rgba(255,255,255,.2);
+  vertical-align:middle; line-height:1.15;
+  white-space:normal; word-break:break-word;
+}
+.crono-table thead .sub th:last-child { border-right:0; }
+.crono-table thead { display:table-header-group; }
+
+/* Body */
+.crono-table tbody td {
+  padding:0.8mm 0.6mm;
+  border-bottom:0.15mm solid var(--ink-100);
+  border-right:0.1mm solid var(--ink-50);
+  vertical-align:middle; text-align:center;
+  word-wrap:break-word; overflow-wrap:break-word;
+  font-size:5.6pt; line-height:1.2;
+}
+.crono-table tbody tr:nth-child(even) { background:var(--ink-25); }
+
+/* Tipos de celda */
+.crono-table td.num  { font-family:var(--font-mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.crono-table td.ler  { font-family:var(--font-mono); white-space:nowrap; }
+.crono-table td.date { font-family:var(--font-mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.crono-table td.mono { font-family:var(--font-mono); font-size:5pt;
+  white-space:normal; word-break:break-all; overflow-wrap:anywhere; }
+.crono-table td.abbr { font-family:var(--font-mono); font-size:5.6pt; font-weight:600;
+  white-space:normal; word-break:break-word; overflow-wrap:anywhere; text-align:center; }
+.crono-table td.abbr-fixed { font-family:var(--font-mono); font-size:5.6pt; font-weight:600;
+  white-space:nowrap; text-align:center; }
+.crono-table td.izq  { text-align:center; }
+.crono-table td.valor { white-space:normal; word-break:keep-all; line-height:1.15; }
+
+/* Tfoot */
+.crono-table tfoot td {
+  font-family:var(--font-body); font-weight:800;
+  background:#EEEFF7; color:var(--brand-navy);
+  border-top:0.4mm solid var(--brand-navy);
+  padding:1.2mm 0.8mm; font-size:6.5pt; text-align:center;
+}
+.crono-table tfoot td.num { font-family:var(--font-mono); font-size:7pt; }
+.crono-table tfoot td:empty { background:transparent; border-top:0; padding:0; }
+.th-razon { background:#ADB1D9; color:#1B1D58; }
+
+/* ── Print bar ── */
+.print-bar { position:fixed; top:16px; right:16px; z-index:10;
+  background:#fff; border-radius:8px;
+  box-shadow:0 6px 16px -6px rgba(11,12,36,0.12); padding:6px; }
+.print-bar button { font-family:var(--font-body); font-weight:600; font-size:13px;
+  padding:8px 14px; border-radius:5px; border:none;
+  background:var(--brand-navy); color:#fff; cursor:pointer; }
+.print-bar button:hover { background:var(--navy-700); }
+
+/* ── Print ── */
+@page { size:A4 landscape; margin:0; }
+@media print {
+  html,body { background:#fff; }
+  .sheet { margin:0; box-shadow:none; }
+  .print-bar { display:none !important; }
+  .sheet--cover { page:cover; }
+}
+@page cover { size:A4 portrait; margin:0; }
+</style>
+</head>
+<body>
+
+<div class="print-bar"><button onclick="window.print()">🖨️ Imprimir / Guardar como PDF</button></div>
+
+
+<section class="sheet sheet--cover">
+  <div style="flex:1;display:flex;flex-direction:column;padding:28mm 22mm 0;">
+    <div style="flex:0.4;"></div>
+    <div class="cover__eyebrow">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <h1 style="font-size:34pt;font-weight:700;color:#1B1D58;line-height:0.95;
+      text-transform:uppercase;letter-spacing:-0.01em;margin:0 0 4mm;
+      font-family:'IBM Plex Sans',system-ui,sans-serif;">
+      Archivo<br/>Cronológico
+    </h1>
+    <div style="font-size:9.5pt;font-weight:700;color:#2C2E88;
+      text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14mm;
+      font-family:'IBM Plex Sans',system-ui,sans-serif;">
+      Gestión de Residuos de Vehículos al Final de su Vida Útil
+    </div>
+    <div style="border:1px solid #E8E8EF;border-left:3px solid #2C2E88;border-radius:3px;overflow:hidden;">
+      <div style="padding:3mm 4mm;background:#EEEFF7;font-size:9pt;font-weight:700;
+        color:#2C2E88;letter-spacing:0.08em;text-transform:uppercase;
+        font-family:'IBM Plex Sans',system-ui,sans-serif;">
+        Datos del centro
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-family:'IBM Plex Sans',system-ui,sans-serif;">
+        <tbody><tr><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:9.5pt;color:#2C2E88;font-weight:600;width:44mm;">Entidad</td><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:10pt;color:#0B0C16;font-weight:700;">DESGUACES OSINALDE S.L.</td></tr><tr><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:9.5pt;color:#2C2E88;font-weight:600;width:44mm;">NIMA</td><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:10pt;color:#0B0C16;font-weight:600;">2000017961</td></tr><tr><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:9.5pt;color:#2C2E88;font-weight:600;width:44mm;">Planta</td><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:10pt;color:#0B0C16;font-weight:600;">Ctra. Beasain- Zumarraga s/n; Area Ind.16 Igara </td></tr><tr><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:9.5pt;color:#2C2E88;font-weight:600;width:44mm;">Nº Autorización</td><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:10pt;color:#0B0C16;font-weight:600;">AAU01006</td></tr><tr><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:9.5pt;color:#2C2E88;font-weight:600;width:44mm;">Tipo Autorización</td><td style="padding:2.6mm 4mm;border-bottom:0.2mm solid #E8E8EF;font-size:10pt;color:#0B0C16;font-weight:600;">G01</td></tr><tr><td style="padding:2.6mm 4mm;font-size:9.5pt;color:#2C2E88;font-weight:600;width:44mm;">Periodo</td><td style="padding:2.6mm 4mm;font-size:10pt;color:#0B0C16;font-weight:600;">2026</td></tr></tbody>
+      </table>
+    </div>
+    <div style="flex:1;"></div>
+    <div style="text-align:right;font-size:9pt;color:#7E8094;padding-bottom:6mm;
+      margin-top:8mm;font-family:'IBM Plex Sans',system-ui,sans-serif;">
+      Fecha: 25 de mayo de 2026
+    </div>
+  </div>
+  <div style="margin:0 22mm;border-top:0.25mm solid #D2D2DE;"></div>
+  <div style="padding:8mm 22mm 14mm;display:flex;justify-content:space-between;align-items:center;">
+    <div style="display:flex;align-items:center;gap:6mm;">
+      <img src="data:image/png;base64,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" alt="Alvale" style="height:25mm;width:auto;display:block;"/>
+      <div style="font-size:8.5pt;color:#2A2C3D;line-height:1.2;font-family:'Poppins',system-ui,sans-serif;">
+        <b style="color:#2C2E88;font-weight:700;font-size:9pt;display:block;margin-bottom:0.5mm;">Alvale Consulting Ingenieros, S.L.</b>
+        <span style="display:block;font-family:'IBM Plex Sans',system-ui,sans-serif;">Ribera de Axpe, 11, L-311-B. 48950 ERANDIO (Bizkaia)</span>
+        <span style="display:block;font-family:'IBM Plex Sans',system-ui,sans-serif;">Tl.: 944 971 050</span>
+      </div>
+    </div>
+    <div style="font-size:9pt;text-align:right;line-height:1.8;font-family:'Poppins',system-ui,sans-serif;">
+      <a href="https://alvaleconsulting.com" style="color:#2C2E88;text-decoration:none;font-weight:600;display:block;">alvaleconsulting.com</a>
+      <a href="https://www.linkedin.com/company/alvale-consulting-ingenieros/" style="color:#2A2C3D;text-decoration:none;display:inline-flex;align-items:center;gap:1.5mm;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:5mm;height:5mm;
+          border-radius:0.6mm;background:#2C2E88;color:#fff;font-weight:800;font-size:7.5pt;">in</span>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="sheet">
+  <header class="sheet__head">
+    <div class="sheet__head-meta"><b>DESGUACES OSINALDE S.L.</b> | 2026 | Archivo Cronológico</div>
+    <div class="sheet__head-right">Alvale Consulting Ingenieros, S.L.</div>
+  </header>
+  <div class="sheet__body">
+    <div class="doc-section">
+      <div class="doc-section__title">
+        Residuos retirados <span style="font-weight:400;color:#5D549D;">(salidas)</span>
+      </div></div>
+    <table class="crono-table">
+      <colgroup>
+  <col style="width:5.3%"/>  <!-- Fecha       dd/mm/yyyy -->
+  <col style="width:3.3%"/>  <!-- Cód LER     6 dígitos -->
+  <col style="width:7.1%"/>  <!-- Descripción wrap -->
+  <col style="width:3.6%"/>  <!-- (t)         numérico -->
+  <col style="width:6.5%"/>  <!-- Nº DI       break-all -->
+  <col style="width:10.1%"/> <!-- Nº CT       break-all -->
+  <col style="width:9.5%"/>  <!-- RS destino  wrap -->
+  <col style="width:4.8%"/>  <!-- NIF         9 chars -->
+  <col style="width:5.7%"/>  <!-- NIMA        10 chars -->
+  <col style="width:5.3%"/>  <!-- Nº aut      break -->
+  <col style="width:2.7%"/>  <!-- Tipo insc   G01 -->
+  <col style="width:5.0%"/>  <!-- Mun         Ormaiztegi -->
+  <col style="width:2.6%"/>  <!-- Prov        GIP -->
+  <col style="width:2.4%"/>  <!-- CCAA        PV -->
+  <col style="width:2.3%"/>  <!-- País        ES -->
+  <col style="width:9.5%"/>  <!-- RS transp   wrap -->
+  <col style="width:6.5%"/>  <!-- Método      R1201/R1301 -->
+  <col style="width:7.7%"/>  <!-- Proceso     Desmontaje VFU -->
+</colgroup>
+      <thead>
+  <tr class="group">
+    <th>Fecha</th>
+    <th colspan="2">Residuo</th>
+    <th>Cant.</th>
+    <th colspan="2">Documentación</th>
+    <th colspan="5">Destino</th>
+    <th colspan="4">Ubic. destino</th>
+    <th>Transportista</th>
+    <th>Trat.</th>
+    <th>Proceso</th>
+  </tr>
+  <tr class="sub">
+    <th>Fecha<br/>traslado</th>
+    <th>Cód.<br/>LER</th>
+    <th>Descripción</th>
+    <th class="num">(t)</th>
+    <th>Nº DI</th>
+    <th>Nº CT</th>
+    <th class="th-razon">Razón social</th>
+    <th>NIF</th>
+    <th>NIMA</th>
+    <th>Nº aut.</th>
+    <th>Tipo<br/>insc.</th>
+    <th>Mun.</th>
+    <th>Prov.</th>
+    <th>CCAA</th>
+    <th>País</th>
+    <th class="th-razon">Razón social</th>
+    <th>Método<br/>valor.</th>
+    <th>Proceso</th>
+  </tr>
+</thead>
+      <tbody><tr><td class="date">18/02/2026</td><td class="ler">160103</td><td class="izq">Nfu Usados</td><td class="num">3,980</td><td class="mono">DI 1563</td><td class="mono">CT30-2000017961-2000017961-3190204209-160103-02</td><td class="izq">Neumaticos Aizoain Navarra, S.L.</td><td class="mono">B31526817</td><td class="mono">3180204209</td><td class="mono">15G05802042092010</td><td class="abbr-fixed">G05</td><td class="abbr">Berrioplano</td><td class="abbr-fixed">NAV</td><td class="abbr-fixed">NAV</td><td class="abbr-fixed">ES</td><td class="izq">Neumaticos Aizoain Navarra, S.L.</td><td class="valor">R1302</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">13/03/2026</td><td class="ler">160801</td><td class="izq">Catalizadores</td><td class="num">0,336</td><td class="mono">DI papel</td><td class="mono">CT30-2000017961-2000017961-3300011315-160801-03 </td><td class="izq">Amperreciclaje, S.L.</td><td class="mono">B93193761</td><td class="mono">3300011315</td><td class="mono">B-93193761/AS/ONP2</td><td class="abbr-fixed">G04</td><td class="abbr">Carreño</td><td class="abbr-fixed">AST</td><td class="abbr-fixed">AST</td><td class="abbr-fixed">ES</td><td class="izq">Amperreciclaje, S.L.</td><td class="valor">R801</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">30/01/2026</td><td class="ler">160801</td><td class="izq">Catalizadores</td><td class="num">0,282</td><td class="mono">DI papel</td><td class="mono">CT30-2000017961-2000017961-3300011315-160801-03 </td><td class="izq">Amperreciclaje, S.L.</td><td class="mono">B93193761</td><td class="mono">3300011315</td><td class="mono">B-93193761/AS/ONP2</td><td class="abbr-fixed">G04</td><td class="abbr">Carreño</td><td class="abbr-fixed">AST</td><td class="abbr-fixed">AST</td><td class="abbr-fixed">ES</td><td class="izq">Amperreciclaje, S.L.</td><td class="valor">R801</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">27,280</td><td class="mono">DCS30200001796120260000001</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">27,160</td><td class="mono">DCS30200001796120260000002</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">24,200</td><td class="mono">DCS30200001796120260000003</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">26,100</td><td class="mono">DCS30200001796120260000004</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">26,620</td><td class="mono">DCS30200001796120260000005</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">29,060</td><td class="mono">DCS30200001796120260000006</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">5,900</td><td class="mono">DCS30200001796120260000007</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160118</td><td class="izq">Chatarra No Férrea Vfu</td><td class="num">6,300</td><td class="mono">DCS30200001796120260000008</td><td class="mono">CT30-2000017961-2000017961-2000075280-160118-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160118</td><td class="izq">Chatarra No Férrea Vfu</td><td class="num">1,420</td><td class="mono">DCS30200001796120260000009</td><td class="mono">CT30-2000017961-2000017961-2000075280-160118-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">23/04/2026</td><td class="ler">160118</td><td class="izq">Chatarra No Férrea Vfu</td><td class="num">7,340</td><td class="mono">DCS30200001796120260000010</td><td class="mono">CT30-2000017961-2000017961-2000075280-160118-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">30/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">26,900</td><td class="mono">DCS30200001796120260000011</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">30/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">28,120</td><td class="mono">DCS30200001796120260000012</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">30/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">26,580</td><td class="mono">DCS30200001796120260000013</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">30/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">25,780</td><td class="mono">DCS30200001796120260000014</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">30/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">24,760</td><td class="mono">DCS30200001796120260000015</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr></tbody>
+      
+    </table>
+  </div>
+  <footer class="sheet__foot">
+    <span>Archivo Cronológico — DESGUACES OSINALDE S.L. — 2026</span>
+    <span>Página 1 de 2</span>
+  </footer>
+</section>
+
+<section class="sheet">
+  <header class="sheet__head">
+    <div class="sheet__head-meta"><b>DESGUACES OSINALDE S.L.</b> | 2026 | Archivo Cronológico</div>
+    <div class="sheet__head-right">Alvale Consulting Ingenieros, S.L.</div>
+  </header>
+  <div class="sheet__body">
+    
+    <table class="crono-table">
+      <colgroup>
+  <col style="width:5.3%"/>  <!-- Fecha       dd/mm/yyyy -->
+  <col style="width:3.3%"/>  <!-- Cód LER     6 dígitos -->
+  <col style="width:7.1%"/>  <!-- Descripción wrap -->
+  <col style="width:3.6%"/>  <!-- (t)         numérico -->
+  <col style="width:6.5%"/>  <!-- Nº DI       break-all -->
+  <col style="width:10.1%"/> <!-- Nº CT       break-all -->
+  <col style="width:9.5%"/>  <!-- RS destino  wrap -->
+  <col style="width:4.8%"/>  <!-- NIF         9 chars -->
+  <col style="width:5.7%"/>  <!-- NIMA        10 chars -->
+  <col style="width:5.3%"/>  <!-- Nº aut      break -->
+  <col style="width:2.7%"/>  <!-- Tipo insc   G01 -->
+  <col style="width:5.0%"/>  <!-- Mun         Ormaiztegi -->
+  <col style="width:2.6%"/>  <!-- Prov        GIP -->
+  <col style="width:2.4%"/>  <!-- CCAA        PV -->
+  <col style="width:2.3%"/>  <!-- País        ES -->
+  <col style="width:9.5%"/>  <!-- RS transp   wrap -->
+  <col style="width:6.5%"/>  <!-- Método      R1201/R1301 -->
+  <col style="width:7.7%"/>  <!-- Proceso     Desmontaje VFU -->
+</colgroup>
+      <thead>
+  <tr class="group">
+    <th>Fecha</th>
+    <th colspan="2">Residuo</th>
+    <th>Cant.</th>
+    <th colspan="2">Documentación</th>
+    <th colspan="5">Destino</th>
+    <th colspan="4">Ubic. destino</th>
+    <th>Transportista</th>
+    <th>Trat.</th>
+    <th>Proceso</th>
+  </tr>
+  <tr class="sub">
+    <th>Fecha<br/>traslado</th>
+    <th>Cód.<br/>LER</th>
+    <th>Descripción</th>
+    <th class="num">(t)</th>
+    <th>Nº DI</th>
+    <th>Nº CT</th>
+    <th class="th-razon">Razón social</th>
+    <th>NIF</th>
+    <th>NIMA</th>
+    <th>Nº aut.</th>
+    <th>Tipo<br/>insc.</th>
+    <th>Mun.</th>
+    <th>Prov.</th>
+    <th>CCAA</th>
+    <th>País</th>
+    <th class="th-razon">Razón social</th>
+    <th>Método<br/>valor.</th>
+    <th>Proceso</th>
+  </tr>
+</thead>
+      <tbody><tr><td class="date">30/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">25,220</td><td class="mono">DCS30200001796120260000016</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">30/04/2026</td><td class="ler">160106</td><td class="izq">Vfu Descontaminados</td><td class="num">20,440</td><td class="mono">DCS30200001796120260000017</td><td class="mono">CT30-2000017961-2000017961-2000075280-160106-02</td><td class="izq">Desguaces Osinalde, S.L. (Campa)</td><td class="mono">B20589032</td><td class="mono">2000075280</td><td class="mono">AAU01354</td><td class="abbr-fixed">G05</td><td class="abbr">Ormaiztegi</td><td class="abbr-fixed">GIP</td><td class="abbr-fixed">PV</td><td class="abbr-fixed">ES</td><td class="izq">Desguaces Osinalde, S.L.</td><td class="valor">R1201/R1301</td><td class="valor">Desmontaje VFU</td></tr><tr><td class="date">15/05/2026</td><td class="ler">160801</td><td class="izq">Catalizadores</td><td class="num">0,195</td><td class="mono">DI papel</td><td class="mono">CT30-2000017961-2000017961-3300011315-160801-03 </td><td class="izq">Amperreciclaje, S.L.</td><td class="mono">B93193761</td><td class="mono">3300011315</td><td class="mono">B-93193761/AS/ONP2</td><td class="abbr-fixed">G04</td><td class="abbr">Carreño</td><td class="abbr-fixed">AST</td><td class="abbr-fixed">AST</td><td class="abbr-fixed">ES</td><td class="izq">Amperreciclaje, S.L.</td><td class="valor">R801</td><td class="valor">Desmontaje VFU</td></tr></tbody>
+      
+    </table>
+  </div>
+  <footer class="sheet__foot">
+    <span>Archivo Cronológico — DESGUACES OSINALDE S.L. — 2026</span>
+    <span>Página 2 de 2</span>
+  </footer>
+</section>
+
+</body>
+</html>
