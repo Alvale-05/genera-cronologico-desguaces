@@ -93,7 +93,7 @@ def leer_salidas(wb):
         def cv(i): return row[i] if len(row)>i else None
         try: peso_t=float(cv(4)) if cv(4) and not str(cv(4)).startswith('=') else float(cv(3))/1000
         except: peso_t=0.0
-        rows.append({'fecha':_fecha(cv(0)),'ler':_ler(cv(1)),'denominacion':_titulo(_str(cv(2))),'cant_t':peso_t,'di':_str(cv(5)),'transp_insc':_str(cv(17)),'dest_razon':_titulo(_str(cv(7))),'dest_nif':_str(cv(8)),'dest_nima':_nima(cv(9)),'dest_aut':_str(cv(10)),'dest_tipo':_str(cv(11)),'municipio':_mun(cv(12)),'prov':_abbr(cv(13),PROV_ABBR),'ccaa':_abbr(cv(14),CCAA_ABBR),'pais':_abbr(cv(15),PAIS_ABBR),'transp_razon':_titulo(_str(cv(16))),'metodo':_str(cv(20)),'proceso':_str(cv(21))})
+        rows.append({'fecha':_fecha(cv(0)),'ler':_ler(cv(1)),'denominacion':_titulo(_str(cv(2))),'cant_t':peso_t,'di':_str(cv(5)),'transp_insc':_str(cv(17)),'dest_razon':_titulo(_str(cv(7))),'dest_nif':_str(cv(8)),'dest_nima':_nima(cv(9)),'dest_aut':_str(cv(10)),'dest_tipo':_str(cv(11)),'municipio':_mun(cv(12)),'prov':_abbr(cv(13),PROV_ABBR),'ccaa':_abbr(cv(14),CCAA_ABBR),'pais':_abbr(cv(15),PAIS_ABBR),'transp_razon':_titulo(_str(cv(16))),'metodo':_str(cv(20)),'proceso':_str(cv(21)).replace('Desmontaje VFU','Desmontaje').replace('desmontaje VFU','Desmontaje')})
     return rows
 
 # ── HTML ──────────────────────────────────────────────────────────
